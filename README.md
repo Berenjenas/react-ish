@@ -1,6 +1,7 @@
 # React-ish
 
-React-ish is a lightweight reactive library designed for experimenting with state management and reactivity. It provides a simple API for creating reactive states, computed values, and effects.
+React-ish is a lightweight reactive library designed for experimenting with state management and reactivity. It provides a simple API for creating
+reactive states, computed values, and effects.
 
 ## Features
 
@@ -29,15 +30,15 @@ const count = state(0);
 const computedCount = computed(() => count.value * 2);
 
 effect(() => {
-	console.log("Count is", count.value);
+    console.log("Count is", count.value);
 });
 
 effect(() => {
-	console.log("Computed count is", computedCount.value);
+    console.log("Computed count is", computedCount.value);
 });
 
 setInterval(() => {
-	count.set(count.value + 1);
+    count.set(count.value + 1);
 }, 2000);
 ```
 
@@ -72,7 +73,7 @@ Observes changes in a state or computed value and executes a callback.
     - `source`: A function that returns the value to watch.
     - `callback`: A function that receives the new and old values.
     - `options`: An optional object with options for the watcher.
-        - `skip`: A boolean indicating whether to skip the watcher on the first run.
+        - `skip`: A boolean indicating whether to skip the internal effect execution.
 
 #### `effect(callback, options?)`
 
@@ -81,7 +82,7 @@ Registers a side effect that runs whenever its dependencies change.
 - **Parameters**:
     - `callback`: A function that optionally returns a cleanup function.
     - `options`: An optional object with options for the effect.
-        - `skip`: A boolean indicating whether to skip the effect on the first run.
+        - `skip`: A boolean indicating whether to skip the effect's execution.
 
 ## Development
 
@@ -95,7 +96,7 @@ Registers a side effect that runs whenever its dependencies change.
 - `pnpm run test`: Runs tests with `vitest` and generates a coverage report.
 - `pnpm run test:ci`: Runs tests with verbose reporting and coverage for CI environments.
 - `pnpm run test:watch`: Runs tests in watch mode.
-- `pnpm run lint`: Checks for TypeScript errors.
+- `pnpm run lint`: Checks for linting errors using `eslint`.
 - `pnpm run format`: Formats the code using Prettier.
 - `pnpm run format:check`: Checks if the code is formatted correctly.
 - `pnpm run clean`: Removes the `dist` directory.
