@@ -23,8 +23,8 @@ export function state<Value>(initialValue: Value): State<Value> {
 			// When the value is accessed, it checks if there are any active effects.
 			// If there are, it adds the current effect to the subscribers set.
 			// This allows the effect to be notified when the state changes.
-			// The effectStack is used to manage the current effect.
-			// The last effect in the stack is the one that is currently executing.
+			// The effect stack is used to manage the current effect.
+			// The last effect in the stack is the one that is currently executing (LIFO).
 			if (effectStack.length > 0) {
 				const currentEffect = effectStack[effectStack.length - 1];
 
@@ -44,6 +44,42 @@ export function state<Value>(initialValue: Value): State<Value> {
 				// Notify all subscribers (effects) that the state has changed.
 				subscribers.forEach((callback) => callback());
 			}
+		}
+	};
+}
+
+/**
+ * Creates a computed state that automatically updates when its dependencies change.
+ * The computed state is derived from a callback function that returns a value.
+ * When the dependencies change, the computed state is updated with the new value.
+ *
+ * @template Value - The type of the computed value.
+ * @param callback - A function that returns the computed value.
+ * @returns A Signal object representing the computed state.
+ * The Signal object has a `value` property to get the current value and a `set` method to update it.
+ */
+export function computed<Value>(callback: () => Value): State<Value> {
+	const computedState = state(callback());
+
+	effect(() => {
+		computedState.set(callback());
+	});
+
+	return computedState;
+}
+
+/**
+ * Creates a readonly version of the state.
+ * This allows to expose the state without letting external code to modify it directly.
+ *
+ * @template Value - The type of the state value.
+ * @param state - The state object to be made readonly.
+ * @returns A Readonly object containing the current value of the state.
+ */
+export function readonly<Value>(state: State<Value>): Readonly<Pick<State<Value>, "value">> {
+	return {
+		get value(): Value {
+			return state.value;
 		}
 	};
 }
@@ -86,24 +122,4 @@ export function effect(callback: EffectCallback): void {
 	}
 
 	runner();
-}
-
-/**
- * Creates a computed state that automatically updates when its dependencies change.
- * The computed state is derived from a callback function that returns a value.
- * When the dependencies change, the computed state is updated with the new value.
- *
- * @template Value - The type of the computed value.
- * @param callback - A function that returns the computed value.
- * @returns A Signal object representing the computed state.
- * The Signal object has a `value` property to get the current value and a `set` method to update it.
- */
-export function computed<Value>(callback: () => Value): State<Value> {
-	const computedState = state(callback());
-
-	effect(() => {
-		computedState.set(callback());
-	});
-
-	return computedState;
 }
