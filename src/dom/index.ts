@@ -1,22 +1,23 @@
-import { computed, state } from "../core";
-import { registerListener } from "./render";
-import "./index.css";
+import { createElement, defineComponent, render, useEffect, useState } from "./render";
 
-const count = state<number>(0);
-const double = computed(() => count.value * 2);
+const Counter = defineComponent(() => {
+    const count = useState<number>(0);
 
-registerListener("counter", "click", () => {
-	count.set(count.value + 1);
+    useEffect(() => {
+        console.log("Count updated:", count.value);
+    });
+
+    return createElement(
+        "div",
+        undefined,
+        createElement("button", { click: () => count.set(count.value - 1) }, "-"),
+        createElement("span", {}, `Count: ${count.value}`),
+        createElement("button", { click: () => count.set(count.value + 1) }, "+")
+    );
 });
 
-export function App() {
-	return `${Header({ count: count.value })}<main><button id="counter">Click</button></main>${Footer({ double: double.value })}`;
-}
+const App = defineComponent(() => {
+    return createElement("div", undefined, Counter());
+});
 
-function Header(props: { count: number }) {
-	return `<header>Hello World! - Count: ${props.count}</header>`;
-}
-
-function Footer(props: { double: number }) {
-	return `<footer>Footer component - Computed value (count x2): ${props.double}</footer>`;
-}
+render(App(), document.getElementById("root")!);
