@@ -1,46 +1,54 @@
 {
-	"type": "module",
-	"name": "react-ish",
-	"description": "A lightweight reactive library for playing around and experimenting.",
-	"version": "1.0.0",
-	"license": "ISC",
-	"keywords": [],
-	"author": "Berenjena",
-	"main": "dist/index.js",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": "./dist/index.js",
-			"default": "./dist/index.cjs"
-		}
-	},
-	"scripts": {
-		"build": "tsup",
-		"ci": "pnpm build && pnpm format && pnpm check-exports && pnpm lint && pnpm test",
-		"check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
-		"start": "node dist/index.js",
-		"dev:tsc": "tsc --watch --preserveWatchOutput",
-		"dev:node": "node --enable-source-maps --watch dist/index.js",
-		"dev": "pnpm run \"/dev:/\"",
-		"test": "vitest run --coverage",
-		"test:ci": "vitest run --reporter=verbose --coverage",
-		"test:watch": "vitest --coverage",
-		"watch": "pnpm run test:watch",
-		"lint": "tsc",
-		"format": "prettier --write .",
-		"format:check": "prettier --check .",
-		"clean": "rm -rf dist",
-		"analyze": "set SOURCE_MAP=true && pnpm run build && source-map-explorer dist/index.js"
-	},
-	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.17.4",
-		"@types/node": "^22.14.1",
-		"@vitest/coverage-v8": "3.1.2",
-		"prettier": "^3.5.3",
-		"source-map-explorer": "^2.5.3",
-		"tsup": "^8.4.0",
-		"typescript": "^5.8.3",
-		"vitest": "^3.1.2"
-	},
-	"packageManager": "pnpm@10.8.1"
+    "type": "module",
+    "name": "react-ish",
+    "description": "A lightweight reactive library for playing around and experimenting.",
+    "version": "1.0.0",
+    "license": "ISC",
+    "keywords": [],
+    "author": "Berenjena",
+    "main": "dist/index.js",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "import": "./dist/index.js",
+            "default": "./dist/index.cjs"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "ci": "pnpm build && pnpm format && pnpm check-exports && pnpm lint && pnpm test",
+        "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+        "start": "node dist/index.js",
+        "dev:tsc": "tsc --watch --preserveWatchOutput",
+        "dev:node": "node --enable-source-maps --watch dist/index.js",
+        "dev": "pnpm run \"/dev:/\"",
+        "test": "vitest run --coverage",
+        "test:ci": "vitest run --reporter=verbose --coverage",
+        "test:watch": "vitest --coverage",
+        "watch": "pnpm run test:watch",
+        "lint": "tsc && eslint .",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "clean": "rm -rf dist",
+        "analyze": "set SOURCE_MAP=true && pnpm run build && source-map-explorer dist/index.js",
+        "prepare": "husky"
+    },
+    "devDependencies": {
+        "@arethetypeswrong/cli": "^0.17.4",
+        "@eslint/js": "^9.25.1",
+        "@eslint/markdown": "^6.4.0",
+        "@types/node": "^22.14.1",
+        "@vitest/coverage-v8": "3.1.2",
+        "eslint": "^9.25.1",
+        "globals": "^16.0.0",
+        "lint-staged": "^15.5.1",
+        "markdownlint": "^0.37.4",
+        "prettier": "^3.5.3",
+        "source-map-explorer": "^2.5.3",
+        "tsup": "^8.4.0",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.31.0",
+        "vitest": "^3.1.2"
+    },
+    "packageManager": "pnpm@10.9.0"
 }
