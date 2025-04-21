@@ -50,7 +50,8 @@ watch(
 	() => count.value,
 	(newValue, oldValue) => {
 		console.log("Count changed from", oldValue, "to", newValue);
-	}
+	},
+	{ skip: true }
 );
 
 // Watch for object changes
@@ -58,7 +59,8 @@ watch(
 	() => ({ count: count.value, computed: computedCount.value }),
 	(newValue, oldValue) => {
 		console.log("Count states changed from", oldValue, "to", newValue);
-	}
+	},
+	{ skip: true }
 );
 
 // #endregion

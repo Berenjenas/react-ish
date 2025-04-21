@@ -64,13 +64,15 @@ Creates a readonly version of a state object.
 -   **Parameters**: `state` - The state object to make readonly.
 -   **Returns**: A readonly state object with `value` (getter).
 
-#### `watch(source, callback)`
+#### `watch(source, callback, options?)`
 
 Observes changes in a state or computed value and executes a callback.
 
 -   **Parameters**:
     -   `source`: A function that returns the value to watch.
     -   `callback`: A function that receives the new and old values.
+    -   `options`: An optional object with options for the watcher.
+        -   `skip`: A boolean indicating whether to skip the watcher on the first run.
 
 #### `effect(callback, options?)`
 

@@ -91,8 +91,10 @@ export function readonly<Value>(state: State<Value>): Readonly<Pick<State<Value>
  * @template Value - The type of the watched value.
  * @param source - A function that returns the value to watch.
  * @param callback - A function to execute when the value changes.
+ * @param effectOptions - An optional object containing options for the effect.
+ * @param effectOptions.skip - A boolean indicating whether to skip the effect.
  */
-export function watch<Value>(source: () => Value, callback: (newValue: Value, oldValue: Value) => void): void {
+export function watch<Value>(source: () => Value, callback: (newValue: Value, oldValue: Value) => void, effectOptions?: EffectOptions): void {
 	let oldValue = source();
 
 	effect(() => {
@@ -103,7 +105,7 @@ export function watch<Value>(source: () => Value, callback: (newValue: Value, ol
 
 			oldValue = newValue;
 		}
-	});
+	}, effectOptions);
 }
 
 /**
@@ -114,6 +116,7 @@ export function watch<Value>(source: () => Value, callback: (newValue: Value, ol
  *
  * @param callback - A function that contains reactive dependencies and optionally returns a cleanup function.
  * @param options - An optional object containing options for the effect.
+ * @param options.skip - A boolean indicating whether to skip the effect.
  */
 export function effect(callback: EffectCallback, options?: EffectOptions): void {
 	if (options?.skip) return;
