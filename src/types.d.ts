@@ -14,6 +14,10 @@ export type Effect = () => void;
 
 export type EffectCallback = () => EffectCleanup;
 
+export type EffectOptions = Partial<{
+	skip: boolean;
+}>;
+
 export type EffectCleanup = (() => void) | void;
 
 export type EffectStack = Effect[];

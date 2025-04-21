@@ -1,4 +1,4 @@
-import type { State, EffectStack, EffectCallback, EffectCleanup } from "./types";
+import type { State, EffectStack, EffectCallback, EffectOptions, EffectCleanup } from "./types";
 
 /**
  * A stack to manage active effects. Used internally by the `effect` function.
@@ -91,8 +91,11 @@ export function readonly<Value>(state: State<Value>): Readonly<Pick<State<Value>
  * This allows for cleanup of resources, such as timers or event listeners.
  *
  * @param callback - A function that contains reactive dependencies and optionally returns a cleanup function.
+ * @param options - An optional object containing options for the effect.
  */
-export function effect(callback: EffectCallback): void {
+export function effect(callback: EffectCallback, options?: EffectOptions): void {
+	if (options?.skip) return;
+
 	let cleanup: EffectCleanup | undefined;
 
 	/**
