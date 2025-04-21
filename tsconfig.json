@@ -1,22 +1,24 @@
 {
 	"compilerOptions": {
-		/* Base Options: */
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"target": "es2022",
 		"allowJs": true,
+		"noEmit": true,
 		"resolveJsonModule": true,
 		"moduleDetection": "force",
 		"isolatedModules": true,
-		/* Strictness */
+		"verbatimModuleSyntax": true,
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
-		/* If transpiling with TypeScript: */
-		"moduleResolution": "NodeNext",
-		"module": "NodeNext",
+		"noImplicitOverride": true,
+		"module": "Preserve",
 		"outDir": "dist",
+		"rootDir": "src",
 		"sourceMap": true,
-		/* If your code doesn't run in the DOM: */
-		"lib": ["es2022"]
-	}
+		"declaration": true,
+		"declarationMap": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }

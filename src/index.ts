@@ -1,4 +1,4 @@
-import { state, computed, readonly, watch, effect } from "./lib";
+import { state, computed, readonly, watch, effect } from "./core";
 
 // #region Example 1: Basic state usage
 
