@@ -1,5 +1,5 @@
-import type { State, EffectStack, EffectCallback, EffectOptions, EffectCleanup } from "./types";
-import { deepEqual } from "./utilities";
+import type { State, EffectStack, EffectCallback, EffectOptions, EffectCleanup } from "../types";
+import { deepEqual } from "../shared/utilities";
 
 /**
  * A stack to manage active effects. Used internally by the `effect` function.
