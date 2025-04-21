@@ -1,4 +1,5 @@
 import type { State, EffectStack, EffectCallback, EffectOptions, EffectCleanup } from "./types";
+import { deepEqual } from "./utilities";
 
 /**
  * A stack to manage active effects. Used internally by the `effect` function.
@@ -82,6 +83,27 @@ export function readonly<Value>(state: State<Value>): Readonly<Pick<State<Value>
 			return state.value;
 		}
 	};
+}
+
+/**
+ * Watches a reactive state or computed value and executes a callback when it changes.
+ *
+ * @template Value - The type of the watched value.
+ * @param source - A function that returns the value to watch.
+ * @param callback - A function to execute when the value changes.
+ */
+export function watch<Value>(source: () => Value, callback: (newValue: Value, oldValue: Value) => void): void {
+	let oldValue = source();
+
+	effect(() => {
+		const newValue = source();
+
+		if (!deepEqual(newValue, oldValue)) {
+			callback(newValue, oldValue);
+
+			oldValue = newValue;
+		}
+	});
 }
 
 /**

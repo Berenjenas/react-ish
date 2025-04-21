@@ -1,37 +1,67 @@
-import { state, computed, readonly, effect } from "./lib";
+import { state, computed, readonly, watch, effect } from "./lib";
 
-// Example 1: Basic state usage
+// #region Example 1: Basic state usage
+
 const count = state(0);
 
-effect(() => {
-	console.log("Count is", count.value);
+effect(
+	() => {
+		console.log("Count is", count.value);
 
-	return () => {
-		console.log("Cleanup count effect");
-	};
-});
+		return () => {
+			console.log("Cleanup count effect");
+		};
+	},
+	{ skip: true }
+);
 
-// Example 2: Computed state usage
+// #endregion
+
+// #region Example 2: Computed state usage
+
 const computedCount = computed(() => count.value * 2);
 
-effect(() => {
-	console.log("Computed count is", computedCount.value);
+effect(
+	() => {
+		console.log("Computed count is", computedCount.value);
+	},
+	{ skip: true }
+);
 
-	return () => {
-		console.log("Cleanup computed count effect");
-	};
-});
+// #endregion
 
-// Example 3: Readonly state usage
+// #region Example 3: Readonly state usage
+
 const readonlyCount = readonly(count);
 
-effect(() => {
-	console.log("Readonly count is", readonlyCount.value);
+effect(
+	() => {
+		console.log("Readonly count is", readonlyCount.value);
+	},
+	{ skip: true }
+);
 
-	return () => {
-		console.log("Cleanup readonly count effect");
-	};
-});
+// #endregion
+
+// #region Example 4: Watcher usage
+
+// Watch for primitive value changes
+watch(
+	() => count.value,
+	(newValue, oldValue) => {
+		console.log("Count changed from", oldValue, "to", newValue);
+	}
+);
+
+// Watch for object changes
+watch(
+	() => ({ count: count.value, computed: computedCount.value }),
+	(newValue, oldValue) => {
+		console.log("Count states changed from", oldValue, "to", newValue);
+	}
+);
+
+// #endregion
 
 // ---------------------------------------------------------
 
