@@ -15,6 +15,9 @@ export type Effect = () => void;
 export type EffectCallback = () => EffectCleanup;
 
 export type EffectOptions = Partial<{
+	/**
+	 * Whether to skip the effect execution
+	 */
 	skip: boolean;
 }>;
 

@@ -72,7 +72,7 @@ Observes changes in a state or computed value and executes a callback.
     - `source`: A function that returns the value to watch.
     - `callback`: A function that receives the new and old values.
     - `options`: An optional object with options for the watcher.
-        - `skip`: A boolean indicating whether to skip the watcher on the first run.
+        - `skip`: A boolean indicating whether to skip the internal effect execution.
 
 #### `effect(callback, options?)`
 
@@ -81,7 +81,7 @@ Registers a side effect that runs whenever its dependencies change.
 - **Parameters**:
     - `callback`: A function that optionally returns a cleanup function.
     - `options`: An optional object with options for the effect.
-        - `skip`: A boolean indicating whether to skip the effect on the first run.
+        - `skip`: A boolean indicating whether to skip the effect's execution.
 
 ## Development
 
