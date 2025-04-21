@@ -29,5 +29,8 @@
     },
     "unordered-list-marker-style": {
         "style": "-"
+    },
+    "MD007": {
+        "indent": 4
     }
 }
