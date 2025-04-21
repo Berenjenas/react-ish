@@ -7,6 +7,8 @@ React-ish is a lightweight reactive library designed for experimenting with stat
 -   **State**: Create reactive state objects that notify subscribers when updated.
 -   **Computed**: Derive values from reactive states that automatically update when dependencies change.
 -   **Effect**: Run side effects in response to state changes.
+-   **Readonly**: Expose state as read-only to prevent external modifications.
+-   **Watch**: Observe changes in state or computed values and react to them.
 
 ## Installation
 
@@ -55,11 +57,29 @@ Creates a computed state derived from other reactive states.
 -   **Parameters**: `callback` - A function that returns the computed value.
 -   **Returns**: A state object with `value` (getter).
 
-#### `effect(callback)`
+#### `readonly(state)`
+
+Creates a readonly version of a state object.
+
+-   **Parameters**: `state` - The state object to make readonly.
+-   **Returns**: A readonly state object with `value` (getter).
+
+#### `watch(source, callback)`
+
+Observes changes in a state or computed value and executes a callback.
+
+-   **Parameters**:
+    -   `source`: A function that returns the value to watch.
+    -   `callback`: A function that receives the new and old values.
+
+#### `effect(callback, options?)`
 
 Registers a side effect that runs whenever its dependencies change.
 
--   **Parameters**: `callback` - A function that optionally returns a cleanup function.
+-   **Parameters**:
+    -   `callback`: A function that optionally returns a cleanup function.
+    -   `options`: An optional object with options for the effect.
+        -   `skip`: A boolean indicating whether to skip the effect on the first run.
 
 ## Development
 
