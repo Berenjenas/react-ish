@@ -24,3 +24,5 @@ export type EffectOptions = Partial<{
 export type EffectCleanup = (() => void) | void;
 
 export type EffectStack = Effect[];
+
+export type GlobalState = string | number | boolean | object | null | undefined;

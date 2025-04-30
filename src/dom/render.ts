@@ -1,7 +1,8 @@
+import { resetGlobalIndex } from "../core";
 import { App } from "./app";
 
-const root = document.getElementById("root") as HTMLElement;
-
 export function renderApp() {
-    root.innerHTML = App();
+    resetGlobalIndex();
+
+    document.body.innerHTML = App();
 }

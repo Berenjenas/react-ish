@@ -1,4 +1,4 @@
-import type { State, EffectStack, EffectCallback, EffectOptions, EffectCleanup } from "../types";
+import type { State, EffectStack, EffectCallback, EffectOptions, EffectCleanup, GlobalState } from "../types";
 import { deepEqual } from "../shared/utilities";
 import { renderApp } from "../dom/render";
 
@@ -6,6 +6,14 @@ import { renderApp } from "../dom/render";
  * A stack to manage active effects. Used internally by the `effect` function.
  */
 const effectStack: EffectStack = [];
+
+// The global state array is used to store the state values
+const globalState: GlobalState[] = [];
+let globalIndex: number = 0;
+
+export function resetGlobalIndex() {
+    globalIndex = 0;
+}
 
 /**
  * Creates a reactive state that can be read and written to.
@@ -18,7 +26,10 @@ const effectStack: EffectStack = [];
  */
 export function state<Value>(initialValue: Value): State<Value> {
     const subscribers = new Set<() => void>();
-    let value = initialValue;
+    const currentIndex = globalIndex;
+    const _value = globalState[currentIndex] ?? initialValue;
+
+    globalIndex++;
 
     return {
         get value(): Value {
@@ -36,13 +47,13 @@ export function state<Value>(initialValue: Value): State<Value> {
             }
 
             // If there are no active effects, it simply return the current value.
-            return value;
+            return _value as Value;
         },
         set(newValue: Value): void {
             // When the value is set, it checks if the new value is different from the current value.
             // If it is, it updates the value and notifies all subscribers.
-            if (value !== newValue) {
-                value = newValue;
+            if (_value !== newValue) {
+                (globalState[currentIndex] as Value) = newValue;
                 // Notify all subscribers (effects) that the state has changed.
                 subscribers.forEach((callback) => callback());
 
