@@ -1,5 +1,6 @@
 import type { State, EffectStack, EffectCallback, EffectOptions, EffectCleanup } from "../types";
 import { deepEqual } from "../shared/utilities";
+import { renderApp } from "../dom/render";
 
 /**
  * A stack to manage active effects. Used internally by the `effect` function.
@@ -44,6 +45,8 @@ export function state<Value>(initialValue: Value): State<Value> {
                 value = newValue;
                 // Notify all subscribers (effects) that the state has changed.
                 subscribers.forEach((callback) => callback());
+
+                renderApp();
             }
         }
     };

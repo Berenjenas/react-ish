@@ -1,6 +1,5 @@
-import { renderRoot } from "./render";
-import { counter } from "./components/counter";
+import { setupClickEventDelegation } from "./events";
+import { renderApp } from "./render";
 
-console.log(counter); // This is a hack to import the custom component to be rendered. TODO: Find a better way to do this
-
-renderRoot("app");
+setupClickEventDelegation();
+renderApp();
