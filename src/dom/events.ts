@@ -4,6 +4,8 @@ const eventHandlers: Record<string, () => void> = {};
  * Registers a click event handler for a specific element.
  * The handler will be executed when the element is clicked.
  *
+ * The event delegation works globally.
+ *
  * @param id - The ID of the event handler.
  * @param handler - The function to execute when the element is clicked.
  */
@@ -15,7 +17,7 @@ export function setupClickEventDelegation() {
     {
         document.addEventListener("click", (e) => {
             const target = e.target as HTMLElement;
-            const eventName = target.getAttribute("onClick");
+            const eventName = target.getAttribute("click");
 
             if (eventName && eventHandlers[eventName]) {
                 eventHandlers[eventName]();

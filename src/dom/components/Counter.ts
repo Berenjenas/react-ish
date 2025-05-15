@@ -8,7 +8,7 @@ export function Counter(props: { counter: number; toggle: boolean }) {
         <span>Double: ${double.value}</span>
         <span>Toggle ${props.toggle ? "On" : "Off"}</span>
 
-        <button onClick="incrementCounter">Click</button>
-        <button onClick="changeName">Toggle</button>
+        <button click="incrementCounter">Increment</button>
+        <button click="toggle">Toggle</button>
     `;
 }

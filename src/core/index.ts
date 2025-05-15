@@ -7,8 +7,15 @@ import { renderApp } from "../dom/render";
  */
 const effectStack: EffectStack = [];
 
-// The global state array is used to store the state values
+/**
+ * The global state array is used to store the state values
+ */
 const globalState: GlobalState[] = [];
+
+/**
+ * The global index is used to keep track of the current state index.
+ * It is incremented each time a new state is created.
+ */
 let globalIndex: number = 0;
 
 export function resetGlobalIndex() {

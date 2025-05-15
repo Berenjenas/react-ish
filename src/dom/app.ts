@@ -8,20 +8,20 @@ export function App() {
     const toggle = state<boolean>(true); // A second state just to show that we can have multiple states
 
     /**
-     * This is a click event handler. It will be executed when the button with the `onClick="incrementCounter"` is clicked.
+     * This is a click event handler. It will be executed when the button with the `click="incrementCounter"` attribute is clicked.
+     *
+     * The event delegation system is implemented in the events.ts file. It uses a map to store the event handlers and a single event listener to handle all events.
      */
     onClick("incrementCounter", () => {
         counter.set(counter.value + 1);
     });
 
     /**
-     * This is just a name change, not a real toggle. Also this is just to show that we can have multiple events handlers
-     * Note that the event handler is not a function, but a string. This is because we are using a custom event delegation system.
-     * The event delegation system is implemented in the events.ts file. It uses a map to store the event handlers and a single event listener to handle all events.
+     * This is just to show that we can have multiple events handlers.
      *
      * Event Id should be unique for each event handler. This is to avoid conflicts between different event handlers.
      */
-    onClick("changeName", () => {
+    onClick("toggle", () => {
         toggle.set(!toggle.value);
     });
 
